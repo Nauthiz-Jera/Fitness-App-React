@@ -1,4 +1,4 @@
-import { ADD_WORKOUT, REMOVE_WORKOUT } from '../actions/workouts';
+import { ADD_EXERCISE, REMOVE_EXERCISE } from '../actions/exercise';
 
 const INITIAL_STATE = {
   legs: [
@@ -77,31 +77,28 @@ const INITIAL_STATE = {
       id: 'tricepExtensions',
     },
   ],
-  selectedWorkouts: {},
+  selectedExercises: {},
 };
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case ADD_WORKOUT:
+    case ADD_EXERCISE:
       let { id } = action.payload;
       return {
         ...state,
-        selectedWorkouts: {
-          ...state.selectedWorkouts,
+        selectedExercises: {
+          ...state.selectedExercises,
           [id]: action.payload,
         },
       };
-    case REMOVE_WORKOUT:
-      let selectedWorkouts = { ...state.selectedWorkouts };
-      delete selectedWorkouts[action.payload.id];
+    case REMOVE_EXERCISE:
+      let selectedExercises = { ...state.selectedExercises };
+      delete selectedExercises[action.payload.id];
 
       return {
         ...state,
-        selectedWorkouts,
+        selectedExercises,
       };
-    // return Object.assign({}, state, {
-    //   selectedWorkouts: state.selectedWorkouts.concat(action.payload),
-    // });
     default:
       return state;
   }

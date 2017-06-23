@@ -1,7 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import Home from './home/Home';
+import ChooseExercises from './chooseExercises/ChooseExercises';
+import CreateWorkout from './createWorkout/CreateWorkout';
 import Nav from './navigation/Nav';
 import store from '../state/store';
 
@@ -14,7 +15,8 @@ class App extends React.Component {
             <Nav />
             <div className="route-container">
               <Switch>
-                <Route exact path="/" component={Home} />
+                <Route exact path="/" component={ChooseExercises} />
+                <Route exact path="/createWorkout" component={CreateWorkout} />
               </Switch>
             </div>
           </div>

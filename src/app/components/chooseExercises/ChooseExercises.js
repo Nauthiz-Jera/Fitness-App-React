@@ -1,30 +1,44 @@
+//import libraries first
 import React from 'react';
-import _ from 'lodash';
-import './Home.css';
-import ExerciseCircle from '../common/ExerciseCircle';
-import { connect } from 'react-redux';
-import { addWorkout, removeWorkout } from '../../state/actions/workouts';
 import styled from 'styled-components';
+import { NavLink } from 'react-router-dom';
+import { connect } from 'react-redux';
+import _ from 'lodash';
+//import project components next:
+// Actions
+// Components
+// CSS
+import { addExercise, removeExercise } from '../../state/actions/exercise';
+import ExerciseCircle from '../common/ExerciseCircle';
+import './ChooseExercises.css';
 
 const WorkoutCategory = styled.div`
   display: inline-block;
   padding: 1em;
 `;
 
+const CreateWorkout = styled.div`
+  display: block;
+  float: right;
+  right: 25px;
+  position: absolute;
+  top: 0px;
+`;
+
 const ChosenWorkouts = styled.div`
 `;
 
 const mapStateToProps = state => ({
-  legs: state.workouts.legs,
-  chest: state.workouts.chest,
-  back: state.workouts.back,
   arms: state.workouts.arms,
-  selectedWorkouts: state.workouts.selectedWorkouts,
+  back: state.workouts.back,
+  chest: state.workouts.chest,
+  legs: state.workouts.legs,
+  selectedExercises: state.workouts.selectedExercises,
 });
 
 const mapDispatchToProps = dispatch => ({
-  addWorkout: workout => dispatch(addWorkout(workout)),
-  removeWorkout: workout => dispatch(removeWorkout(workout)),
+  addExercise: exercise => dispatch(addExercise(exercise)),
+  removeExercise: exercise => dispatch(removeExercise(exercise)),
 });
 
 class Home extends React.Component {
@@ -39,8 +53,8 @@ class Home extends React.Component {
     this.onClickExerciseCategory = this.onClickExerciseCategory.bind(this);
   }
 
-  onClickExercise(workout) {
-    this.props.addWorkout(workout);
+  onClickExercise(exercise) {
+    this.props.addExercise(exercise);
   }
 
   onClickExerciseCategory(selectedCategory) {
@@ -50,12 +64,12 @@ class Home extends React.Component {
   }
 
   renderChosenWorkouts() {
-    const { selectedWorkouts, removeWorkout } = this.props;
+    const { selectedExercises, removeExercise } = this.props;
 
-    return _.map(selectedWorkouts, (workout, index) => (
+    return _.map(selectedExercises, (exercise, index) => (
       <ExerciseCircle
-        title={workout.name}
-        onClick={() => removeWorkout(workout)}
+        title={exercise.name}
+        onClick={() => removeExercise(exercise)}
         key={index}
         color={'#70b8e2'}
       />
@@ -81,6 +95,11 @@ class Home extends React.Component {
           <h2>
             Track your strength
           </h2>
+          <CreateWorkout onClick={() => {}}>
+            <NavLink to="/createWorkout">
+              +
+            </NavLink>
+          </CreateWorkout>
           <ChosenWorkouts>
             {this.renderChosenWorkouts()}
           </ChosenWorkouts>
