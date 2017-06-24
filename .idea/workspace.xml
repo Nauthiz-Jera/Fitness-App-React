@@ -2,23 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f6c895d9-853f-42ee-bfa4-e48840151608" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/app/components/common/ColorTag/ColorCircles.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/app/components/common/ColorTag/ColorTag.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/app/components/common/DaySelector/DaySelector.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/app/components/common/DaySelector/Days.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/app/components/common/inputField.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/app/components/createWorkout/CreateWorkout.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/app/state/actions/workout.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/app/state/reducers/workout.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/app/components/home/Home.css" afterPath="$PROJECT_DIR$/src/app/components/chooseExercises/ChooseExercises.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/app/components/home/Home.js" afterPath="$PROJECT_DIR$/src/app/components/chooseExercises/ChooseExercises.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/app/state/actions/workouts.js" afterPath="$PROJECT_DIR$/src/app/state/actions/exercise.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/app/state/reducers/workouts.js" afterPath="$PROJECT_DIR$/src/app/state/reducers/exercise.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/components/App.js" afterPath="$PROJECT_DIR$/src/app/components/App.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/components/navigation/Nav.js" afterPath="$PROJECT_DIR$/src/app/components/navigation/Nav.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/state/root-reducer.js" afterPath="$PROJECT_DIR$/src/app/state/root-reducer.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -48,14 +33,24 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DaySelector.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="DaySelector.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/app/components/common/DaySelector/DaySelector.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="586">
+            <state relative-caret-position="542">
               <caret line="38" column="22" lean-forward="true" selection-start-line="38" selection-start-column="22" selection-end-line="38" selection-end-column="22" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="306">
+              <caret line="18" column="0" lean-forward="true" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -142,18 +137,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="root-reducer.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/app/state/root-reducer.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="8" column="0" lean-forward="true" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
-              <folding>
-                <element signature="e#0#40#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
     </leaf>
   </component>
   <component name="FindInProjectRecents">
@@ -216,6 +199,7 @@
         <option value="$PROJECT_DIR$/src/app/components/navigation/Nav.js" />
         <option value="$PROJECT_DIR$/src/app/components/common/inputField.js" />
         <option value="$PROJECT_DIR$/src/app/components/common/DaySelector/DaySelector.js" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -616,12 +600,12 @@
       <option name="presentableId" value="Default" />
       <updated>1498175494093</updated>
       <workItem from="1498175495336" duration="10259000" />
-      <workItem from="1498185831784" duration="5841000" />
+      <workItem from="1498185831784" duration="5967000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="16100000" />
+    <option name="totallyTimeSpent" value="16226000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -910,11 +894,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/app/components/common/DaySelector/DaySelector.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="586">
+        <state relative-caret-position="542">
           <caret line="38" column="22" lean-forward="true" selection-start-line="38" selection-start-column="22" selection-end-line="38" selection-end-column="22" />
           <folding>
             <element signature="e#0#41#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="18" column="0" lean-forward="true" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
