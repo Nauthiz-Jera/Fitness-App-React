@@ -10,7 +10,6 @@ import _ from 'lodash';
 // CSS
 import { addExercise, removeExercise } from '../../state/actions/exercise';
 import ExerciseCircle from '../common/ExerciseCircle';
-import './ChooseExercises.css';
 
 const WorkoutCategory = styled.div`
   display: inline-block;
@@ -22,6 +21,7 @@ const CreateWorkout = styled.div`
   float: right;
   right: 25px;
   position: absolute;
+  color: #32CD32;
   top: 0px;
 `;
 
@@ -29,16 +29,16 @@ const ChosenWorkouts = styled.div`
 `;
 
 const mapStateToProps = state => ({
-  arms: state.workouts.arms,
-  back: state.workouts.back,
-  chest: state.workouts.chest,
-  legs: state.workouts.legs,
-  selectedExercises: state.workouts.selectedExercises,
+  arms: state.exercise.arms,
+  back: state.exercise.back,
+  chest: state.exercise.chest,
+  legs: state.exercise.legs,
+  selectedExercises: state.exercise.selectedExercises,
 });
 
 const mapDispatchToProps = dispatch => ({
-  addExercise: exercise => dispatch(addExercise(exercise)),
-  removeExercise: exercise => dispatch(removeExercise(exercise)),
+  addExercise: (exercise, category) => dispatch(addExercise(exercise, category)),
+  removeExercise: (exercise, category) => dispatch(removeExercise(exercise, category)),
 });
 
 class Home extends React.Component {
@@ -53,8 +53,8 @@ class Home extends React.Component {
     this.onClickExerciseCategory = this.onClickExerciseCategory.bind(this);
   }
 
-  onClickExercise(exercise) {
-    this.props.addExercise(exercise);
+  onClickExercise(exercise, selectedCategory) {
+    this.props.addExercise(exercise, selectedCategory);
   }
 
   onClickExerciseCategory(selectedCategory) {
@@ -65,11 +65,12 @@ class Home extends React.Component {
 
   renderChosenWorkouts() {
     const { selectedExercises, removeExercise } = this.props;
+    const { selectedCategory } = this.state;
 
     return _.map(selectedExercises, (exercise, index) => (
       <ExerciseCircle
         title={exercise.name}
-        onClick={() => removeExercise(exercise)}
+        onClick={() => removeExercise(exercise, selectedCategory)}
         key={index}
         color={'#70b8e2'}
       />
@@ -82,7 +83,7 @@ class Home extends React.Component {
     return this.props[selectedCategory].map((exercise, index) => (
       <ExerciseCircle
         title={exercise.name}
-        onClick={() => this.onClickExercise(exercise)}
+        onClick={() => this.onClickExercise(exercise, selectedCategory)}
         key={index}
       />
     ));
@@ -90,14 +91,14 @@ class Home extends React.Component {
 
   render() {
     return (
-      <div className="home-page-container">
-        <div className="home-header-container">
+      <div>
+        <div>
           <h2>
             Track your strength
           </h2>
           <CreateWorkout onClick={() => {}}>
-            <NavLink to="/createWorkout">
-              +
+            <NavLink to="/create-workout">
+              Done!
             </NavLink>
           </CreateWorkout>
           <ChosenWorkouts>
@@ -116,7 +117,6 @@ class Home extends React.Component {
             {'Arms'}
           </WorkoutCategory>
           {this.renderSelectedCategory()}
-
         </div>
       </div>
     );

@@ -10,7 +10,7 @@ const Container = styled.div`
   width: 100%;
 `;
 
-const WEEKDAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+const WEEKDAYS = ['MO', 'TU', 'WE', 'TH', 'FR', 'SA', 'SU'];
 
 class DaySelector extends Component {
   static propTypes = {

@@ -7,7 +7,7 @@ const Input = styled.input`
   height: 100%;
   width: 100%;
   text-align: center;
-  background-color: rgb(43,217,211);
+  background-color: #635595;
   border: 0;
 `;
 

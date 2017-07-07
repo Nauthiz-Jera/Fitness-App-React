@@ -4,33 +4,30 @@ import ColorCircle from './ColorCircles';
 import styled from 'styled-components';
 
 const ColorTagContainer = styled.div`
+  align-content: center;
+  align-items: center;
   display: flex;
   width: 100%;
   height: 50px;
-  justify-content: space-between;
+  justify-content: space-around;
+  background-color: #635595;
 `;
 
 const COLORS = [
   {
-    color: 'blue',
+    color: '#A3E583',
   },
   {
-    color: 'red',
+    color: '#88E5E1',
   },
   {
-    color: 'green',
+    color: '#88A4E5',
   },
   {
-    color: 'yellow',
+    color: '#B886E5',
   },
   {
-    color: 'purple',
-  },
-  {
-    color: 'teal',
-  },
-  {
-    color: 'orange',
+    color: '#E586E2',
   },
 ];
 

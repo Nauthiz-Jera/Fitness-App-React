@@ -3,14 +3,17 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
 const Container = styled.div`
-	width: 40px;
-	height: 40px;
-	background: ${props => (props.active ? '#39ca84' : 'transparent')};
-	border-radius: 20px;
+	background: transparent;
+	border: ${props => (props.active ? '1px solid #51AAE1' : 'none')};
+	color: ${props => (props.active ? '#51AAE1' : 'gray')};
+	height: 30px;
+	width: 30px;
+	border-radius: 30px;
 	display: flex;
+  align-self: center;
   align-items: center;
-  text-align: center;
-  justify-content: center;
+  justify-content: space-around;
+  margin: 0 auto;
 `;
 
 class Days extends Component {

@@ -1,4 +1,5 @@
 import { ADD_EXERCISE, REMOVE_EXERCISE } from '../actions/exercise';
+import _ from 'lodash';
 
 const INITIAL_STATE = {
   legs: [
@@ -83,7 +84,12 @@ const INITIAL_STATE = {
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case ADD_EXERCISE:
-      let { id } = action.payload;
+      let { id, removeFromCategory } = action.payload;
+      let deleteIndex = _.findIndex(state[removeFromCategory], o => {
+        return o.id === id;
+      });
+
+      state[removeFromCategory].splice(deleteIndex, 1);
       return {
         ...state,
         selectedExercises: {
@@ -92,9 +98,11 @@ export default (state = INITIAL_STATE, action) => {
         },
       };
     case REMOVE_EXERCISE:
+      let { addToCategory } = action.payload;
       let selectedExercises = { ...state.selectedExercises };
-      delete selectedExercises[action.payload.id];
 
+      delete selectedExercises[action.payload.id];
+      state[addToCategory].unshift(action.payload);
       return {
         ...state,
         selectedExercises,
