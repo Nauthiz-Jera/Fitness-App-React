@@ -11,12 +11,29 @@ import _ from 'lodash';
 import { addExercise, removeExercise } from '../../state/actions/exercise';
 import ExerciseCircle from '../common/ExerciseCircle';
 
+const PageTitle = styled.h2`
+  color: white;
+`;
+
+const BasicButton = styled.div`
+  align-items: center;
+  color: #51AAE1;
+  display: flex;
+  height: 100%;
+  font-size: 25px;
+  justify-content: center;
+  &:hover{
+    cursor: pointer;
+  }
+`;
+
 const WorkoutCategory = styled.div`
   display: inline-block;
   padding: 1em;
+  color: white;
 `;
 
-const CreateWorkout = styled.div`
+const ChooseExercises = styled.div`
   display: block;
   float: right;
   right: 25px;
@@ -93,14 +110,16 @@ class Home extends React.Component {
     return (
       <div>
         <div>
-          <h2>
+          <PageTitle>
             Track your strength
-          </h2>
-          <CreateWorkout onClick={() => {}}>
+          </PageTitle>
+          <ChooseExercises onClick={() => {}}>
             <NavLink to="/create-workout">
-              Done!
+              <BasicButton>
+                ✔
+              </BasicButton>
             </NavLink>
-          </CreateWorkout>
+          </ChooseExercises>
           <ChosenWorkouts>
             {this.renderChosenWorkouts()}
           </ChosenWorkouts>

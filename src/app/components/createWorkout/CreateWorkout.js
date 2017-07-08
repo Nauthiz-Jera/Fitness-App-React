@@ -7,7 +7,6 @@ import InputField from '../common/inputField';
 import ColorTag from '../common/ColorTag/ColorTag';
 import DaySelector from '../common/DaySelector/DaySelector';
 import ExerciseList from '../common/ExerciseList';
-import Nav from '../navigation/Nav';
 
 const HeaderContainer = styled.div`
   display: flex;
@@ -35,6 +34,13 @@ const PageTitle = styled.div`
   height: 100%;
   font-size: 20px;
   justify-content: center;
+`;
+
+const WorkoutContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
 `;
 
 const FormContainer = styled.div`
@@ -121,7 +127,6 @@ class CreateWorkout extends React.Component {
     return (
       <div>
         <HeaderContainer>
-
           <NavLink to="/">
             <BasicButton>
               ⬅
@@ -137,6 +142,9 @@ class CreateWorkout extends React.Component {
         <InputContainer>
           <InputField placeholder="Name Your Plan" />
         </InputContainer>
+        <WorkoutContainer>
+          Placeholder for workouts
+        </WorkoutContainer>
         <FormContainer>
           <InputContainer>
             <InputField placeholder="Workout Name" />

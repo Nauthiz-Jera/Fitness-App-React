@@ -1,18 +1,18 @@
 export const ADD_EXERCISE = 'add_exercise';
 export const REMOVE_EXERCISE = 'remove_exercise';
 
-export const addExercise = (workout, category) => ({
+export const addExercise = (exercise, category) => ({
   type: ADD_EXERCISE,
   payload: {
-    ...workout,
+    ...exercise,
     removeFromCategory: category,
   },
 });
 
-export const removeExercise = (workout, category) => ({
+export const removeExercise = (exercise, category) => ({
   type: REMOVE_EXERCISE,
   payload: {
-    ...workout,
+    ...exercise,
     addToCategory: category,
   },
 });
