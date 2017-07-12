@@ -40,7 +40,7 @@ class ColorTag extends Component {
     super(props);
 
     this.state = {
-      selectedColor: '',
+      selectedColor: props.workoutColor,
     };
 
     this.onClickCircle = this.onClickCircle.bind(this);

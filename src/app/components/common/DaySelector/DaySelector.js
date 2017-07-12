@@ -20,7 +20,7 @@ class DaySelector extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedDay: '',
+      selectedDay: props.workoutDay,
     };
   }
 

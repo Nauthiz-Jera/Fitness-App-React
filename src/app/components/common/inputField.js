@@ -12,9 +12,33 @@ const Input = styled.input`
 `;
 
 class InputField extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      userInput: props.text,
+    };
+
+    this.onChange = this.onChange.bind(this);
+  }
+
+  onChange(event) {
+    this.setState({
+      userInput: event.target.value,
+    });
+
+    this.props.callback(event.target.value);
+  }
+
   render() {
     const { placeholder } = this.props;
-    return <Input placeholder={placeholder} />;
+    return (
+      <Input
+        onChange={this.onChange}
+        type="text"
+        placeholder={placeholder}
+        value={this.state.userInput}
+      />
+    );
   }
 }
 

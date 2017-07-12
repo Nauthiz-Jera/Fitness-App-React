@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import _ from 'lodash';
+import { addWorkout } from '../../state/actions/workout';
 import InputField from '../common/inputField';
 import ColorTag from '../common/ColorTag/ColorTag';
 import DaySelector from '../common/DaySelector/DaySelector';
@@ -37,10 +38,23 @@ const PageTitle = styled.div`
 `;
 
 const WorkoutContainer = styled.div`
+  align-content: center;
+  align-items: center;
   display: flex;
   justify-content: center;
-  align-items: center;
+`;
+
+const RadioButton = styled.div`
   align-content: center;
+  align-item: center;
+  display: flex;
+  border-radius: 1em;
+  border: 1px solid white;
+  background: ${props => (props.active ? 'white' : 'transparent')};
+  height: .75em;
+  justify-content: center;
+  width: .75em;
+  margin: 5px 0;
 `;
 
 const FormContainer = styled.div`
@@ -55,7 +69,6 @@ const FormContainer = styled.div`
 const InputContainer = styled.div`
   height: 50px;
   width: 100%;
-  margin-bottom: 15px;
   border-bottom: 1px solid #322C4C;
 `;
 
@@ -113,17 +126,83 @@ const AddExercisesBtn = styled.div`
 const mapStateToProps = state => {
   return {
     selectedExercises: state.exercise.selectedExercises,
+    workout: state.workout.workout,
   };
 };
 
+const mapDispatchToProps = dispatch => ({
+  addWorkout: workout => dispatch(addWorkout(workout)),
+});
+
 class CreateWorkout extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      viewWorkout: 0,
+    };
+
+    this.onClickAddWorkout = this.onClickAddWorkout.bind(this);
+  }
+
   renderSelectedExercises() {
-    return _.map(this.props.selectedExercises, (exercise, index) => (
+    const { selectedExercises } = this.props;
+    const { workout } = this.props;
+    const { viewWorkout } = this.state;
+
+    workout[viewWorkout].exercises = selectedExercises;
+
+    return _.map(selectedExercises, (exercise, index) => (
       <ExerciseList exercise={exercise.name} key={index} />
     ));
   }
 
+  onClickAddWorkout(workout) {
+    this.props.addWorkout(workout);
+    this.setState({ viewWorkout: this.state.viewWorkout++ });
+    console.log('props: ', this.props);
+  }
+
+  renderWorkouts() {
+    const { workout } = this.props;
+    const { viewWorkout } = this.state;
+
+    return workout.map((workout, index) => (
+      <RadioButton active={viewWorkout === index} key={index} />
+    ));
+  }
+
+  setColorTag(selectedColor) {
+    const { workout } = this.props;
+    const { viewWorkout } = this.state;
+
+    workout[viewWorkout].colorTag = selectedColor;
+  }
+
+  setWorkoutDay(selectedDay) {
+    const { workout } = this.props;
+    const { viewWorkout } = this.state;
+
+    workout[viewWorkout].workoutDay = selectedDay;
+  }
+
+  updatePlanName(currentWorkout) {
+    return function(text) {
+      currentWorkout.parent = text;
+    };
+  }
+
+  updateWorkoutName(currentWorkout) {
+    return function(text) {
+      currentWorkout.name = text;
+    };
+  }
+
   render() {
+    const { workout } = this.props;
+    const { viewWorkout } = this.state;
+    const currentWorkout = workout[viewWorkout];
+
     return (
       <div>
         <HeaderContainer>
@@ -135,32 +214,46 @@ class CreateWorkout extends React.Component {
           <PageTitle>
             New Workout Plan
           </PageTitle>
-          <BasicButton onClick={() => {}}>
+          <BasicButton onClick={() => this.onClickAddWorkout(workout)}>
             ✔
           </BasicButton>
         </HeaderContainer>
         <InputContainer>
-          <InputField placeholder="Name Your Plan" />
+          <InputField
+            callback={this.updatePlanName(currentWorkout)}
+            placeholder={'Name Your Plan!'}
+            text={currentWorkout.parent}
+          />
         </InputContainer>
         <WorkoutContainer>
-          Placeholder for workouts
+          {this.renderWorkouts()}
         </WorkoutContainer>
         <FormContainer>
           <InputContainer>
-            <InputField placeholder="Workout Name" />
+            <InputField
+              callback={this.updateWorkoutName(currentWorkout)}
+              placeholder={'Name Your Workout!'}
+              text={currentWorkout.name}
+            />
           </InputContainer>
           <InputTitle>
             COLOR TAG
           </InputTitle>
           <ColorTagContainer>
-            <ColorTag onClick={() => {}} />
+            <ColorTag
+              workoutColor={currentWorkout.colorTag}
+              onClick={color => this.setColorTag(color)}
+            />
           </ColorTagContainer>
           <InputTitle>
             SELECT WORKOUT DAY
           </InputTitle>
           <DaySelectContainer>
             <DayList>
-              <DaySelector onClick={() => {}} />
+              <DaySelector
+                workoutDay={currentWorkout.workoutDay}
+                onClick={day => this.setWorkoutDay(day)}
+              />
             </DayList>
           </DaySelectContainer>
           <InputTitle>
@@ -180,4 +273,4 @@ class CreateWorkout extends React.Component {
   }
 }
 
-export default connect(mapStateToProps)(CreateWorkout);
+export default connect(mapStateToProps, mapDispatchToProps)(CreateWorkout);

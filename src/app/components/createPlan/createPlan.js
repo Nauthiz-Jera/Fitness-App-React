@@ -27,6 +27,7 @@ const NewPlanButton = styled.div`
   align-items: center;
   align-text: center;
 `;
+
 class CreatePlan extends Component {
   constructor(props) {
     super(props);
