@@ -51,11 +51,14 @@ const mapStateToProps = state => ({
   chest: state.exercise.chest,
   legs: state.exercise.legs,
   selectedExercises: state.exercise.selectedExercises,
+  workout: state.workout.workout,
 });
 
 const mapDispatchToProps = dispatch => ({
-  addExercise: (exercise, category) => dispatch(addExercise(exercise, category)),
-  removeExercise: (exercise, category) => dispatch(removeExercise(exercise, category)),
+  addExercise: (exercise, category, parentId, index) =>
+    dispatch(addExercise(exercise, category, parentId, index)),
+  removeExercise: (exercise, category, parentId, index) =>
+    dispatch(removeExercise(exercise, category, parentId, index)),
 });
 
 class Home extends React.Component {
@@ -70,8 +73,8 @@ class Home extends React.Component {
     this.onClickExerciseCategory = this.onClickExerciseCategory.bind(this);
   }
 
-  onClickExercise(exercise, selectedCategory) {
-    this.props.addExercise(exercise, selectedCategory);
+  onClickExercise(exercise, selectedCategory, parentId, index) {
+    this.props.addExercise(exercise, selectedCategory, parentId, index);
   }
 
   onClickExerciseCategory(selectedCategory) {
@@ -81,14 +84,19 @@ class Home extends React.Component {
   }
 
   renderChosenWorkouts() {
-    const { selectedExercises, removeExercise } = this.props;
+    const { selectedExercises, removeExercise, location } = this.props;
     const { selectedCategory } = this.state;
-
-    return _.map(selectedExercises, (exercise, index) => (
+    let { index, parentId } = location.state;
+    let exerciseArray = {};
+    if (selectedExercises[parentId]) {
+      exerciseArray = selectedExercises[parentId][index];
+    }
+    return _.map(exerciseArray, (exercise, mapIndex) => (
       <ExerciseCircle
-        title={exercise.name}
-        onClick={() => removeExercise(exercise, selectedCategory)}
-        key={index}
+        title={exercise[Object.keys(exercise)[0]].name}
+        onClick={() =>
+          removeExercise(exercise[Object.keys(exercise)[0]], selectedCategory, parentId, index)}
+        key={mapIndex}
         color={'#70b8e2'}
       />
     ));
@@ -96,12 +104,23 @@ class Home extends React.Component {
 
   renderSelectedCategory() {
     const { selectedCategory } = this.state;
+    const { selectedExercises, location } = this.props;
+    let { index, parentId } = location.state;
+    let categoryExercises = this.props[selectedCategory];
 
-    return this.props[selectedCategory].map((exercise, index) => (
+    if (selectedExercises[parentId]) {
+      categoryExercises = _.filter(categoryExercises, exercise => {
+        return !_.find(selectedExercises[parentId][index], selected => {
+          return selected[exercise.id];
+        });
+      });
+    }
+
+    return categoryExercises.map((exercise, mapIndex) => (
       <ExerciseCircle
         title={exercise.name}
-        onClick={() => this.onClickExercise(exercise, selectedCategory)}
-        key={index}
+        onClick={() => this.onClickExercise(exercise, selectedCategory, parentId, index)}
+        key={mapIndex}
       />
     ));
   }

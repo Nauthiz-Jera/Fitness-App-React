@@ -14,16 +14,16 @@ const INITIAL_STATE = {
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case ADD_WORKOUT:
-      console.log('add workout called');
-      state.workout.push({
-        parent: 'name your plan',
-        name: 'new workout',
+      let workout = state.workout.concat({
+        parent: '',
+        name: '',
         colorTag: 'none',
         workoutDay: '',
         exercises: {},
       });
       return {
         ...state,
+        workout,
       };
     default:
       return state;

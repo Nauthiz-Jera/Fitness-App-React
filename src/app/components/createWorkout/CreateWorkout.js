@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import _ from 'lodash';
 import { addWorkout } from '../../state/actions/workout';
 import InputField from '../common/inputField';
@@ -139,7 +139,7 @@ class CreateWorkout extends React.Component {
     super(props);
 
     this.state = {
-      viewWorkout: 0,
+      workoutIndex: 0,
     };
 
     this.onClickAddWorkout = this.onClickAddWorkout.bind(this);
@@ -148,60 +148,64 @@ class CreateWorkout extends React.Component {
   renderSelectedExercises() {
     const { selectedExercises } = this.props;
     const { workout } = this.props;
-    const { viewWorkout } = this.state;
-
-    workout[viewWorkout].exercises = selectedExercises;
-
-    return _.map(selectedExercises, (exercise, index) => (
-      <ExerciseList exercise={exercise.name} key={index} />
+    const { workoutIndex } = this.state;
+    let exerciseArray = {};
+    if (selectedExercises[workout[workoutIndex].parent]) {
+      exerciseArray = selectedExercises[workout[workoutIndex].parent][workoutIndex];
+    }
+    return _.map(exerciseArray, (exercise, index) => (
+      <ExerciseList exercise={exercise[Object.keys(exercise)[0]].name} key={index} />
     ));
   }
 
   onClickAddWorkout(workout) {
     this.props.addWorkout(workout);
-    this.setState({ viewWorkout: this.state.viewWorkout++ });
-    console.log('props: ', this.props);
+    this.setState({ workoutIndex: (this.state.workoutIndex += 1) });
   }
 
   renderWorkouts() {
     const { workout } = this.props;
-    const { viewWorkout } = this.state;
+    const { workoutIndex } = this.state;
 
     return workout.map((workout, index) => (
-      <RadioButton active={viewWorkout === index} key={index} />
+      <RadioButton
+        onClick={() => this.setViewWorkout(index)}
+        active={workoutIndex === index}
+        key={index}
+      />
     ));
+  }
+
+  setViewWorkout(index) {
+    this.setState({ workoutIndex: index });
   }
 
   setColorTag(selectedColor) {
     const { workout } = this.props;
-    const { viewWorkout } = this.state;
-
-    workout[viewWorkout].colorTag = selectedColor;
+    const { workoutIndex } = this.state;
+    workout[workoutIndex].colorTag = selectedColor;
+    this.setState(this.state);
   }
 
   setWorkoutDay(selectedDay) {
     const { workout } = this.props;
-    const { viewWorkout } = this.state;
-
-    workout[viewWorkout].workoutDay = selectedDay;
+    const { workoutIndex } = this.state;
+    workout[workoutIndex].workoutDay = selectedDay;
+    this.setState(this.state);
   }
 
-  updatePlanName(currentWorkout) {
+  updateInput(currentWorkout, field) {
+    const thisRef = this;
     return function(text) {
-      currentWorkout.parent = text;
-    };
-  }
-
-  updateWorkoutName(currentWorkout) {
-    return function(text) {
-      currentWorkout.name = text;
+      currentWorkout[field] = text;
+      thisRef.setState(thisRef.state);
     };
   }
 
   render() {
     const { workout } = this.props;
-    const { viewWorkout } = this.state;
-    const currentWorkout = workout[viewWorkout];
+    const { workoutIndex } = this.state;
+    const currentWorkout = workout[workoutIndex];
 
     return (
       <div>
@@ -220,7 +224,7 @@ class CreateWorkout extends React.Component {
         </HeaderContainer>
         <InputContainer>
           <InputField
-            callback={this.updatePlanName(currentWorkout)}
+            callback={this.updateInput(currentWorkout, 'parent')}
             placeholder={'Name Your Plan!'}
             text={currentWorkout.parent}
           />
@@ -231,7 +235,7 @@ class CreateWorkout extends React.Component {
         <FormContainer>
           <InputContainer>
             <InputField
-              callback={this.updateWorkoutName(currentWorkout)}
+              callback={this.updateInput(currentWorkout, 'name')}
               placeholder={'Name Your Workout!'}
               text={currentWorkout.name}
             />
@@ -263,7 +267,12 @@ class CreateWorkout extends React.Component {
             {this.renderSelectedExercises()}
           </SelectedExercises>
         </FormContainer>
-        <NavLink to="/choose-exercises">
+        <NavLink
+          to={{
+            pathname: '/choose-exercises',
+            state: { parentId: currentWorkout.parent, index: workoutIndex },
+          }}
+        >
           <AddExercisesBtn>
             Add Exercises!
           </AddExercisesBtn>

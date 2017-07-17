@@ -84,25 +84,45 @@ const INITIAL_STATE = {
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case ADD_EXERCISE:
-      let { id, removeFromCategory } = action.payload;
-      let deleteIndex = _.findIndex(state[removeFromCategory], o => {
+      let { id, removeFromCategory, parentId, index } = action.payload;
+      /*let deleteIndex = _.findIndex(state[removeFromCategory], o => {
         return o.id === id;
-      });
+      });*/
+      let exercises = {
+        ...state.selectedExercises,
+      };
+      let doesExist = _.findKey(exercises[parentId], index);
+      if (!doesExist) {
+        exercises[parentId] = { [index]: [{ [id]: action.payload }] };
+      } else {
+        exercises[parentId][index].push({ [id]: action.payload });
+      }
 
-      state[removeFromCategory].splice(deleteIndex, 1);
+      //state[removeFromCategory].splice(deleteIndex, 1);
       return {
         ...state,
+        parentId: parentId,
+        index: index,
         selectedExercises: {
-          ...state.selectedExercises,
-          [id]: action.payload,
+          ...exercises,
         },
       };
     case REMOVE_EXERCISE:
       let { addToCategory } = action.payload;
       let selectedExercises = { ...state.selectedExercises };
+      let parent = action.payload.parentId;
+      let removeIndex = action.payload.index;
+      console.log('remove: ', action.payload.id);
 
-      delete selectedExercises[action.payload.id];
-      state[addToCategory].unshift(action.payload);
+      selectedExercises[parent][removeIndex] = _.filter(
+        selectedExercises[parent][removeIndex],
+        function(exercise) {
+          console.log('exercise', exercise);
+          return Object.keys(exercise)[0] !== action.payload.id;
+        },
+      );
+
+      //state[addToCategory].unshift(action.payload);
       return {
         ...state,
         selectedExercises,

@@ -36,35 +36,20 @@ class ColorTag extends Component {
     onClick: PropTypes.func.isRequired,
   };
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      selectedColor: props.workoutColor,
-    };
-
-    this.onClickCircle = this.onClickCircle.bind(this);
-  }
-
   onClickCircle(color) {
     const { onClick } = this.props;
-
-    this.setState({
-      selectedColor: color,
-    });
-
     onClick(color);
   }
 
   render() {
-    const { selectedColor } = this.state;
+    const { workoutColor } = this.props;
     return (
       <ColorTagContainer>
         {COLORS.map((element, index) => (
           <ColorCircle
             color={element.color}
             onClick={() => this.onClickCircle(element.color)}
-            active={selectedColor === element.color}
+            active={workoutColor === element.color}
             key={index}
           />
         ))}

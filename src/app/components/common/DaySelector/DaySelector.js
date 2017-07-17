@@ -17,20 +17,13 @@ class DaySelector extends Component {
     onClick: PropTypes.func.isRequired,
   };
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      selectedDay: props.workoutDay,
-    };
-  }
-
   onClickSelectDay(day) {
     this.setState({ selectedDay: day });
     this.props.onClick(day);
   }
 
   render() {
-    const { selectedDay } = this.state;
+    const { workoutDay } = this.props;
     return (
       <Container>
         {WEEKDAYS.map((day, index) => (
@@ -38,7 +31,7 @@ class DaySelector extends Component {
             onClick={() => this.onClickSelectDay(day)}
             name={day}
             key={index}
-            active={selectedDay === day}
+            active={workoutDay === day}
           />
         ))}
       </Container>
